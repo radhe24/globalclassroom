@@ -37,6 +37,15 @@
   padding: 3rem 2rem;
 }
 
+.pathway-section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+  color: var(--text-light);
+}
+
 .faculty-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

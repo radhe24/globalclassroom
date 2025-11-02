@@ -35,13 +35,18 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
   margin-bottom: 4rem;
+  width: 100%;
+  justify-items: center;
 }
 
 .pricing-card-3d {
@@ -53,6 +58,10 @@
   transform-style: preserve-3d;
   transition: all 0.3s ease;
   position: relative;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-card-3d:hover {
@@ -117,6 +126,9 @@
 
 .pricing-features {
   padding: 2rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-features ul {
@@ -148,9 +160,10 @@
   font-weight: bold;
   color: white;
   border: none;
-  border-radius: 0;
+  border-radius: 0 0 25px 25px;
   cursor: pointer;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  margin-top: auto;
 }
 
 .offers-card-3d {

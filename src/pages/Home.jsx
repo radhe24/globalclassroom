@@ -1,11 +1,30 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './Home.css';
 
 const Home = () => {
   const [selectedPathway, setSelectedPathway] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  // Handle modal scroll and body scroll lock
+  useEffect(() => {
+    if (showModal) {
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+      // Scroll to top to ensure modal is visible
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Re-enable body scroll when modal closes
+      document.body.style.overflow = 'unset';
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showModal]);
 
   const learningPathways = [
     {
@@ -13,28 +32,40 @@ const Home = () => {
       icon: '👶',
       color: '#ff6b9d',
       description: 'Fun and interactive learning for ages 3-6',
+      detailedDescription: 'Designed for young minds, our Early Learners program focuses on play-based learning, creativity, and foundational skills. Through interactive activities, stories, and games, children develop cognitive abilities, social skills, and a love for learning. Our certified early childhood educators create a nurturing environment where every child thrives.',
       gradient: 'linear-gradient(135deg, #ff6b9d 0%, #c44569 100%)',
+      price: 'Starting at ₹500/month',
+      features: ['Interactive play-based activities', 'Small groups of 5-6 students', '3 sessions per week', 'Parent progress tracking', 'Certified early childhood educators', 'Multilingual support'],
     },
     {
       title: 'K-12',
       icon: '📚',
       color: '#4ecdc4',
       description: 'Comprehensive education from kindergarten to high school',
+      detailedDescription: 'Our K-12 Foundation program provides comprehensive curriculum coverage from kindergarten through high school. With expert teachers, personalized attention, and flexible scheduling, students excel in all subjects. We prepare students for board exams, competitive tests, and future academic success.',
       gradient: 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)',
+      price: 'Starting at ₹1,500/month',
+      features: ['Complete curriculum coverage', 'Pod size: 6-8 students', '4 sessions per week', 'Homework support', 'Regular assessments', 'Exam preparation'],
     },
     {
       title: 'Higher Education',
       icon: '🎓',
       color: '#a8e6cf',
       description: 'University-level courses and degrees',
+      detailedDescription: 'Pursue university-level courses with our Higher Education program. Learn from industry experts and academic professionals. Access project-based learning, career guidance, and certification programs. Perfect for students preparing for higher studies or professionals seeking advanced knowledge.',
       gradient: 'linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%)',
+      price: 'Starting at ₹3,000/month',
+      features: ['University-level courses', 'Pod size: 5-7 students', '5 sessions per week', 'Project-based learning', 'Career guidance', 'Certificate programs'],
     },
     {
       title: 'Professional Development',
       icon: '💼',
       color: '#ffd93d',
       description: 'Career advancement and skill-building programs',
+      detailedDescription: 'Advance your career with our Professional Development courses. Designed for working professionals, our programs focus on practical skills, industry best practices, and networking. Evening and weekend sessions make it easy to upskill while maintaining your work schedule.',
       gradient: 'linear-gradient(135deg, #ffd93d 0%, #ff6b6b 100%)',
+      price: 'Starting at ₹2,500/month',
+      features: ['Skill-based courses', 'Pod size: 6-8 professionals', 'Evening/weekend sessions', 'Networking opportunities', 'Industry case studies', 'Certification upon completion'],
     },
   ];
 
@@ -68,6 +99,8 @@ const Home = () => {
   const handlePathwayClick = (pathway) => {
     setSelectedPathway(pathway);
     setShowModal(true);
+    // Scroll to top to show modal
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -138,8 +171,12 @@ const Home = () => {
               className="btn-3d btn-primary"
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                document.getElementById('pathways')?.scrollIntoView({ behavior: 'smooth' });
+              onClick={(e) => {
+                e.preventDefault();
+                const pathwaysSection = document.getElementById('pathways');
+                if (pathwaysSection) {
+                  pathwaysSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
               }}
             >
               🚀 Explore Learning Pathways
@@ -148,8 +185,10 @@ const Home = () => {
               className="btn-3d btn-secondary"
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              as={Link}
-              to="/pricing"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/pricing');
+              }}
             >
               View Pricing →
             </motion.button>
@@ -158,7 +197,7 @@ const Home = () => {
       </section>
 
       {/* Learning Pathways */}
-      <section id="pathways" className="section-3d">
+      <section id="pathways" className="section-3d" style={{ scrollMarginTop: '80px' }}>
         <motion.h2
           className="section-title"
           initial={{ opacity: 0 }}
@@ -273,15 +312,16 @@ const Home = () => {
                 rotateY: 10,
                 rotateX: 5,
               }}
-              onClick={() => feature.link && (window.location.href = feature.link)}
               style={{ cursor: feature.link ? 'pointer' : 'default' }}
             >
               <div className="feature-icon-large">{feature.icon}</div>
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
-              {feature.link && (
-                <span className="feature-link">Learn more →</span>
-              )}
+              {feature.link ? (
+                <Link to={feature.link} className="feature-link">
+                  Learn more →
+                </Link>
+              ) : null}
             </motion.div>
           ))}
         </div>
@@ -427,7 +467,13 @@ const Home = () => {
 
       {/* Modal */}
       {showModal && selectedPathway && (
-        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+        <div 
+          className="modal-overlay" 
+          onClick={() => {
+            setShowModal(false);
+            setSelectedPathway(null);
+          }}
+        >
           <motion.div
             className="modal-3d"
             initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
@@ -435,28 +481,75 @@ const Home = () => {
             exit={{ opacity: 0, scale: 0.8, rotateY: 90 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <button className="modal-close" onClick={() => setShowModal(false)}>
+            <button 
+              className="modal-close" 
+              onClick={() => {
+                setShowModal(false);
+                setSelectedPathway(null);
+              }}
+            >
               ✕
             </button>
-            <h2>{selectedPathway.title}</h2>
-            <p>{selectedPathway.description}</p>
+            <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>
+                {selectedPathway.icon}
+              </div>
+              <h2>{selectedPathway.title}</h2>
+              <p style={{ color: 'var(--accent-yellow)', fontSize: '1.2rem', fontWeight: 'bold', marginTop: '0.5rem' }}>
+                {selectedPathway.price}
+              </p>
+            </div>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '1.5rem' }}>
+              {selectedPathway.detailedDescription}
+            </p>
             <div className="modal-tips">
-              <h4>Quick Tips:</h4>
+              <h4>What's Included:</h4>
               <ul>
-                <li>Engage actively in pod discussions</li>
-                <li>Complete assignments on time</li>
-                <li>Network with fellow learners</li>
-                <li>Utilize 24/7 support resources</li>
+                {selectedPathway.features.map((feature, idx) => (
+                  <li key={idx}>{feature}</li>
+                ))}
               </ul>
             </div>
-            <motion.button
-              className="btn-3d btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setShowModal(false)}
-            >
-              Start Learning
-            </motion.button>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '2rem' }}>
+              {selectedPathway.title === 'Professional Development' ? (
+                <motion.button
+                  className="btn-3d btn-primary"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setShowModal(false);
+                    setSelectedPathway(null);
+                    navigate('/courses');
+                  }}
+                >
+                  View Courses →
+                </motion.button>
+              ) : (
+                <motion.button
+                  className="btn-3d btn-primary"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setShowModal(false);
+                    setSelectedPathway(null);
+                    navigate('/pricing');
+                  }}
+                >
+                  View Pricing →
+                </motion.button>
+              )}
+              <motion.button
+                className="btn-3d btn-secondary"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  setShowModal(false);
+                  setSelectedPathway(null);
+                }}
+              >
+                Close
+              </motion.button>
+            </div>
           </motion.div>
         </div>
       )}
