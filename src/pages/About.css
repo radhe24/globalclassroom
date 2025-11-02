@@ -1,0 +1,248 @@
+.about-page {
+  min-height: 100vh;
+  padding: 2rem;
+  perspective: 1000px;
+}
+
+.about-hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero-content {
+  max-width: 900px;
+}
+
+.page-title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: bold;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.page-subtitle {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  color: var(--text-light);
+  line-height: 1.8;
+}
+
+.about-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  transform-style: preserve-3d;
+}
+
+.mission-card-3d {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  padding: 4rem;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+}
+
+.mission-card-3d h2 {
+  font-size: 2.5rem;
+  color: var(--accent-yellow);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.mission-card-3d p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 2;
+  margin-bottom: 1.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.stat-card-3d {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  padding: 2.5rem;
+  text-align: center;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.stat-card-3d:hover {
+  box-shadow: 0 25px 60px rgba(255, 215, 0, 0.4);
+  border-color: var(--accent-yellow);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 5px 15px rgba(255, 215, 0, 0.5));
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--accent-yellow);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 3rem;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.value-card-3d {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  padding: 3rem 2rem;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.value-card-3d:hover {
+  box-shadow: 0 25px 60px rgba(255, 215, 0, 0.4);
+  border-color: var(--accent-yellow);
+}
+
+.value-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 5px 15px rgba(255, 215, 0, 0.5));
+}
+
+.value-card-3d h3 {
+  font-size: 1.5rem;
+  color: var(--accent-yellow);
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.value-card-3d p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.context-card-3d {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  padding: 4rem;
+  text-align: center;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+}
+
+.context-badges {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.context-card-3d p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.credits-section {
+  padding-top: 6rem;
+}
+
+.credits-card-3d {
+  background: linear-gradient(135deg, #ffd700 0%, #ff8f00 100%);
+  border-radius: 30px;
+  padding: 4rem;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(255, 215, 0, 0.5);
+  transform-style: preserve-3d;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.credits-card-3d h2 {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.credits-divider {
+  width: 100px;
+  height: 3px;
+  background: var(--text-dark);
+  margin: 1.5rem auto;
+  border-radius: 2px;
+}
+
+.credits-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.credits-text strong {
+  color: var(--text-dark);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.credits-description {
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .mission-card-3d,
+  .context-card-3d,
+  .credits-card-3d {
+    padding: 2rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
